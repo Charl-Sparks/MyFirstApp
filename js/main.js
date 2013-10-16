@@ -1,18 +1,10 @@
 var app = {
 
-    initialize: function() {
-        var self = this;
-        this.detailsURL = /^#employees\/(\d{1,})/;
-        this.registerEvents();
-        this.store = new MemoryStore(function() {
-            self.route();
-        });
-    }
-
     registerEvents: function() {
         var self = this;
-        $(window).on('hashchange', $.proxy(this.route, this));
         // Check of browser supports touch events...
+        $(window).on('hashchange', $.proxy(this.route, this));
+
         if (document.documentElement.hasOwnProperty('ontouchstart')) {
             // ... if yes: register touch event listener to change the "selected" state of the item
             $('body').on('touchstart', 'a', function(event) {
@@ -44,7 +36,27 @@ var app = {
                 $('body').html(new EmployeeView(employee).render().el);
             });
         }
+    },
+
+    /*initialize: function() {
+        var self = this;
+        this.detailsURL = /^#employees\/(\d{1,})/;
+        this.registerEvents();
+        this.store = new MemoryStore(function() {
+            $('body').html(new HomeView(self.store).render().el);
+        });
+    }*/
+
+    initialize: function() {
+        var self = this;
+        this.detailsURL = /^#employees\/(\d{1,})/;
+        this.registerEvents();
+        this.store = new MemoryStore(function() {
+            self.route();
+        });
     }
+
+    
 
 };
 
